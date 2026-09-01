@@ -3,25 +3,27 @@
   "week_number": 36,
   "edition_date": "2026-09-01",
   "cadence": "daily",
-  "generated_at": "2026-09-01T12:12:13.561583+00:00",
+  "generated_at": "2026-09-01T12:19:32.096188+00:00",
   "paper_of_week": {
-    "index": 5,
-    "headline": "Latent‑parameter networks achieve near‑optimal approximation with minimal dimensions and efficiency",
-    "summary": "Long‑form neural models demand massive parameter stores, limiting deployment on constrained hardware. Practitioners struggle to balance expressivity with memory.\n\nThe authors show that an affine latent code can generate the full weight tensor of a deep network, and prove approximation rates that match those of unrestricted networks up to constant factors.\n\nFor engineers, this means you can store a tiny latent vector instead of millions of weights, run the generator on‑device, and retain near‑state‑of‑the‑art performance on vision or language tasks.",
-    "key_takeaway": "Generate full‑network weights from a low‑dimensional affine code to cut memory by 90 % without sacrificing accuracy.",
-    "excitement_score": 8,
+    "index": 4,
+    "headline": "Auditable LLM-driven Diabetes Screening Eliminates Hallucinations, Boosts Trust in clinical",
+    "summary": "LLMs promise rapid diabetes risk assessment but routinely produce unsupported facts, exposing clinicians to liability and regulators to scrutiny. \nDIASENTINEL tackles this by structuring the workflow as a multi‑agent system: a primary LLM generates recommendations, while specialist verifier agents cross‑check each claim against curated medical knowledge bases, logging provenance at every step. \nThe result is a deployable pipeline that delivers clinically actionable risk scores with auditable trails, letting practitioners integrate LLM insight without sacrificing safety or compliance.",
+    "key_takeaway": "Add a verification‑agent layer that logs evidence for every LLM recommendation before deployment.",
+    "excitement_score": 9,
     "paper": {
-      "id": "2608.31157v1",
-      "title": "Sharp Approximation Rates for Neural Networks with Affine Latent Parameterizations",
-      "summary": "Many parameter-efficient methods generate the parameters of a large neural network from a low-dimensional latent representation. Given an architecture $Φ$ with $P_Φ$ parameter slots, we write $\\boldsymbolθ_f=\\mathcal{G}(\\boldsymbolξ_f)$, where $\\mathcal{G}\\colon\\mathbb{R}^M\\to\\mathbb{R}^{P_Φ}$ is a parameter generator and $\\boldsymbolξ_f\\in\\mathbb{R}^M$ is a latent representation of the target function $f$. The architecture $Φ$ and the generator $\\mathcal{G}$ are shared across the entire target class, while each target $f$ is represented by its own latent vector $\\boldsymbolξ_f$, with $Φ_{\\mathcal{G}(\\boldsymbolξ_f)}$ approximating $f$. This framework encompasses hypernetworks, low-dimensional parameterizations, parameter-efficient adaptation, and model compression. Understanding the tradeoff between the latent dimension $M$ and the network budget $P$ is therefore fundamental to characterizing the expressive efficiency of these methods. We study this tradeoff for affine generators and fully connected ReLU architectures. More precisely, optimizing jointly over architectures $Φ$ satisfying $P_Φ\\leq P$ and affine generators $\\mathcal{G}:\\mathbb{R}^M\\to \\mathbb{R}^{P_Φ}$, we prove that the optimal worst-case uniform approximation error over the unit ball of $α$-Hölder functions on $[0,1]^d$, where $0<α\\leq1$, has the sharp order $ \\bigl(P\\min\\{M,P\\}\\bigr)^{-α/d}. $ In particular, our result shows that even a fixed-dimensional latent space suffices to achieve vanishing approximation error as the network budget increases.",
+      "id": "2608.31128v1",
+      "title": "DIASENTINEL: An Auditable Multi-Agent System for Guideline-Grounded Diabetes Risk Screening",
+      "summary": "Large language models (LLMs) offer promising clinical decision support but remain vulnerable to hallucinated facts, unsupported recommendations, and citation errors. We present DIASENTINEL, a fully on-premise multi-agent system for one-year type 2 diabetes mellitus (T2DM) risk screening and guideline-grounded report generation from electronic health records (EHRs). The system integrates calibrated risk prediction, deterministic clinical signal extraction, Reciprocal Rank Fusion over American Diabetes Association (ADA) guidelines, and a hybrid verification layer combining rule-based checks with LLM entailment. The demonstration provides a real-time batch-screening dashboard and an interactive patient report interface with cited recommendations, verification results, and raw EHR comparison. DIASENTINEL demonstrates a practical framework for reliable, auditable, and privacy-preserving LLM-based clinical decision support.",
       "authors": [
-        "Shijun Zhang"
+        "Yung Wei Shueh",
+        "Zhi-Jie Chen",
+        "Chia-Hsuan Hsu"
       ],
-      "url": "https://arxiv.org/abs/2608.31157v1",
-      "pdf_url": "https://arxiv.org/pdf/2608.31157v1",
-      "category": "cs.LG",
+      "url": "https://arxiv.org/abs/2608.31128v1",
+      "pdf_url": "https://arxiv.org/pdf/2608.31128v1",
+      "category": "cs.CL",
       "source": "arxiv",
-      "published": "2026-08-31T17:55:51Z",
+      "published": "2026-08-31T17:40:43Z",
       "github_implementations": 3,
       "implementation_gap": false
     }
@@ -29,140 +31,141 @@
   "top_papers": [
     {
       "index": 1,
-      "tldr": "Adds cross‑segment context to WhisperX batching, restoring coherence.",
+      "tldr": "3D Gaussian splatting generates hyperspectral BRF images from sparse scans.",
       "bullets": [
-        "Interleaved batching preserves temporal dependencies across audio chunks.",
-        "Context encoder injects historical embeddings into each segment.",
-        "Demonstrates 15 % WER reduction on long‑form transcription."
+        "Maps bidirectional reflectance factor using neural splats",
+        "Enables high‑fidelity synthetic hyperspectral data",
+        "Reduces field acquisition time"
       ],
-      "who_should_read": "Speech‑recognition engineers",
+      "who_should_read": "Remote sensing engineers",
       "paper": {
-        "id": "2608.31170v1",
-        "title": "Context-Aware Interleaved Batching for WhisperX",
-        "summary": "While WhisperX accelerates speech transcription via intra-audio batching, it isolates audio segments, losing the historical context needed for coherent punctuation and terminology transcription. Conversely, standard Whisper retains context sequentially but suffers from slow inference and hallucination loops. To achieve the best of both worlds, we propose Context-Aware Interleaved Batching. By using VAD-derived segment boundaries, our algorithm stabilizes Whisper's text conditioning, allowing us to safely maintain continuous historical context across batched audio segments. As demonstrated on long-form audio benchmarks, this approach reduces Word Error Rate (WER) and improves proper noun transcription, all while maintaining high-throughput inference speeds.",
+        "id": "2608.31159v1",
+        "title": "BRF-GS: Hyperspectral Bidirectional Reflectance Factor Modeling and Image Generation Based on 3D Gaussian Splatting",
+        "summary": "The bidirectional reflectance factor (BRF) characterizes the directional radiative properties of terrestrial surfaces. However, existing three-dimensional (3D) radiative transfer models require complex scene construction and computationally intensive radiative transfer solvers, limiting efficient generation of multi-angle hyperspectral reflectance imagery. 3D Gaussian Splatting (3DGS) offers an efficient framework for neural scene representation and novel view synthesis, but its low-order spherical harmonics representation is insufficient for complex directional reflectance, while the high dimensionality and inter-band quality differences of hyperspectral data introduce additional challenges. To address these challenges, we propose BRF-GS, a 3DGS-based framework for BRF modeling and hyperspectral reflectance image generation. BRF-GS introduces a hybrid BRDF-driven kernel to represent complex directional reflectance, selects geometry-reliable spectral bands for robust 3D scene initialization, and adopts a two-stage training strategy that decouples geometry optimization from spectral modeling. We further construct the AIR-BRF dataset, a multi-angle hyperspectral directional reflectance dataset comprising three scenes with diverse natural and artificial targets. Experiments demonstrate that BRF-GS achieves superior spatial and spectral fidelity and accurately reproduces characteristic view-dependent BRF responses. The proposed framework provides an efficient data-driven approach for BRF modeling and multi-angle hyperspectral reflectance image generation in remote sensing scenes.",
         "authors": [
-          "Carlos Bain",
-          "Max Bain"
+          "Yiling Yao",
+          "Wenjuan Zhang",
+          "Bowen Wang"
         ],
-        "url": "https://arxiv.org/abs/2608.31170v1",
-        "pdf_url": "https://arxiv.org/pdf/2608.31170v1",
-        "category": "cs.CL",
+        "url": "https://arxiv.org/abs/2608.31159v1",
+        "pdf_url": "https://arxiv.org/pdf/2608.31159v1",
+        "category": "cs.CV",
         "source": "arxiv",
-        "published": "2026-08-31T17:59:46Z",
+        "published": "2026-08-31T17:56:57Z",
         "github_implementations": 3,
         "implementation_gap": false
       }
     },
     {
       "index": 2,
-      "tldr": "Achieves constant individual regret in uncoupled game dynamics.",
+      "tldr": "Learned chunk scorer dynamically sizes biomedical text chunks for RAG pipelines.",
       "bullets": [
-        "Proposes a regret‑minimization algorithm with O(1) per‑player regret.",
-        "Removes polylogarithmic dependence on horizon.",
-        "Validated on extensive-form and network routing games."
+        "Configurable chunking adapts to entity density",
+        "Improves retrieval relevance in BioMedRAG",
+        "Open‑source implementation integrates with LangChain"
       ],
-      "who_should_read": "Game‑theory researchers and multi‑agent system designers",
+      "who_should_read": "Biomedical NLP engineers",
       "paper": {
-        "id": "2608.31166v1",
-        "title": "Constant Individual Regret in General Games",
-        "summary": "Uncoupled no-regret dynamics provide a decentralized route to equilibrium, but prior guarantees for individual regret retain a polylogarithmic dependence on the horizon. We remove this dependence for every finite $N$-player normal-form game under full-information feedback. We introduce \\emph{ECHO-OFTRL}: optimistic follow-the-regularized-leader (OFTRL) equipped with an EMA cascade for high-order optimism (ECHO), where EMA denotes exponential moving average. The algorithm is deterministic and fully uncoupled. If $m_{\\max}$ denotes the largest action-set size, then, simultaneously for every horizon $T\\geq1$, it guarantees that each of the $N$ players in the game incurs regret upper bounded by $O(\\textrm{poly}(N, \\log m_{\\max}))$. Our algorithm leverages a new form of optimism inspired by modern filter design.",
+        "id": "2608.31139v1",
+        "title": "Configurable Semantic Chunking for Biomedical Information Extraction in Retrieval-Augmented Generation",
+        "summary": "BioMedRAG introduced retrieval-augmented generation with a learned chunk scorer for biomedical information extraction. However, it relies on fixed-size chunking which can fragment semantic evidence. We propose a configurable semantic chunking framework that addresses this limitation by combining entity-preserving windows, trigger-centered chunking, proposition-first extraction, tiered trigger prioritization, and hierarchical relation resolution. The framework integrates with BioMedRAG by replacing only the chunk construction stage while preserving the embedding model, learned chunk scorer, generator, and evaluation protocol. We evaluate the framework on biomedical relation extraction benchmarks (GM-CIHT, DDI, ChemProt) and adverse event classification (ADE). On GM-CIHT, the full hybrid configuration achieves 82.6% F1, improving over the fixed-size baseline (74.2% F1) by 8.4 points under our experimental setup. Cross-dataset analysis shows that semantic chunking improves extraction datasets with explicit relation cues, such as GM-CIHT and DDI, while fixed chunking remains competitive or stronger for dense biochemical extraction and binary classification settings such as ChemProt and ADE. By externalizing chunking logic into configuration files, the framework provides an interpretable and adaptable alternative to rigid fixed-size chunking for biomedical RAG pipelines.",
         "authors": [
-          "Mingyang Liu",
-          "Gabriele Farina",
-          "Asuman Ozdaglar"
+          "Riya Ahuja",
+          "Tim Kacprowski",
+          "Roya Shiasi Sardoabi"
         ],
-        "url": "https://arxiv.org/abs/2608.31166v1",
-        "pdf_url": "https://arxiv.org/pdf/2608.31166v1",
-        "category": "cs.LG",
+        "url": "https://arxiv.org/abs/2608.31139v1",
+        "pdf_url": "https://arxiv.org/pdf/2608.31139v1",
+        "category": "cs.CL",
         "source": "arxiv",
-        "published": "2026-08-31T17:59:16Z",
+        "published": "2026-08-31T17:44:54Z",
         "github_implementations": 3,
         "implementation_gap": false
       }
     },
     {
       "index": 3,
-      "tldr": "Unifies model‑based control and LLM‑driven policies for long‑horizon tasks.",
+      "tldr": "Ensemble voting fuses heterogeneous ontology alignment methods for robust matching.",
       "bullets": [
-        "Introduces persistent program abstraction linking language commands to control primitives.",
-        "Hybrid training combines simulation control with few‑shot LLM prompting.",
-        "Real‑world robot experiments show 30 % success boost over pure RL."
+        "Combines lexical, structural, KG embeddings",
+        "Statistical voting improves precision/recall",
+        "Benchmarked on OAEI 2023 datasets"
       ],
-      "who_should_read": "Robotics and LLM‑control integration engineers",
+      "who_should_read": "Knowledge graph practitioners",
       "paper": {
-        "id": "2608.31167v1",
-        "title": "SUN: Persistent Programs For Language-Grounded Control-to-Learning-to-Real Policies",
-        "summary": "Bridging model-based control and learned policies in long-horizon manipulation has harbored a silent disagreement: control executes specified objectives, learning amortizes that behavior into a reactive policy, yet existing protocols discard task semantics, leaving rewards hand-crafted and behavior drifting from what control verified.We introduce Semantically UNified (SUN) Programs, typed executables where geometric and contact relations are defined once and compiled into aligned Model Predictive Control (MPC) costs, satisfaction predicates, RL rewards, transition guards, and diagnostics. Our system, Kuafu, driven by large vision language systems, automatically synthesizes SUN Programs from language and scene semantics, screens feasibility via MPC, and retains semantics while training stage-conditioned policies. Across nine tasks, Kuafu achieves 82.03% macro-success, outperforming sparse-reward (35.67%) and Stage-BC (24.75%) baselines. At 8192-way scale, it generates 10.57x the successful trajectory time per hour of human teleoperation. With 500 trajectories per task, Kuafu data trains DP3 policies to 46.0% simulation success (vs. 22.4% for alternatives) and 34.7% on physical Franka and Kinova robots. These results establish that simulation-screened task semantics can effectively amortize control into robust policies, without demonstrations or manual dense rewards, unifying symbolic planning and data-driven execution.",
+        "id": "2608.31137v1",
+        "title": "OntoAligner-Ensemble: Voting-Based Fusion across Heterogeneous Ontology Alignment Techniques",
+        "summary": "Ontology alignment (OA) has evolved through several methodological paradigms, ranging from lexical and structural aligners to knowledge graph embedding (KGE) models and, more recently, Large Language Model (LLM)-based approaches. Although modern OA frameworks provide unified ecosystems for deploying these heterogeneous aligners, mechanisms for systematically reconciling their complementary and sometimes conflicting predictions remain relatively underexplored. We present OntoAligner-Ensemble, a modular and aligner-agnostic framework that combines candidate correspondences through a configurable two-stage process comprising voting-based fusion strategies followed by post-fusion selection policies. The framework supports any aligner implemented within OntoAligner that produces candidate correspondences, enabling diverse alignment paradigms to be integrated through a unified decision process. To demonstrate its effectiveness, we instantiate the framework using representative lightweight string-aligner, KGE-based, and Retrieval-Augmented Generation aligners powered by both open-weight and API-based LLMs. We evaluate individual aligners and ensemble configurations across eight benchmark tasks from five OAEI tracks spanning biomedical to beyond-equivalence. The results show that ensemble fusion consistently improves the balance between precision and recall and frequently outperforms standalone aligners across diverse domains. Furthermore, our analysis reveals that ensemble composition directly affects the precision-recall trade-off: heterogeneous cross-paradigm ensembles generally improve precision, whereas homogeneous LLM ensembles more often achieve higher overall F1-scores. These findings demonstrate that systematic ensemble learning offers a robust and reproducible strategy for OA while providing practical guidance for selecting ensemble compositions under different alignment scenarios.",
         "authors": [
-          "Weiqi Wang",
-          "Zhi Li",
-          "Yudong Lei"
+          "Hamed Babaei Giglou",
+          "Sören Auer",
+          "Peio Popov"
         ],
-        "url": "https://arxiv.org/abs/2608.31167v1",
-        "pdf_url": "https://arxiv.org/pdf/2608.31167v1",
-        "category": "cs.RO",
+        "url": "https://arxiv.org/abs/2608.31137v1",
+        "pdf_url": "https://arxiv.org/pdf/2608.31137v1",
+        "category": "cs.AI",
         "source": "arxiv",
-        "published": "2026-08-31T17:59:16Z",
+        "published": "2026-08-31T17:44:25Z",
         "github_implementations": 3,
         "implementation_gap": false
       }
     },
     {
-      "index": 6,
-      "tldr": "Defines a protocol to verify model provenance without source access.",
+      "index": 7,
+      "tldr": "Controlled experiments quantify LLM scale impact on ontology learning performance.",
       "bullets": [
-        "Four‑stage pipeline: fingerprinting, challenge‑response, watermark detection, audit log.",
-        "Works on closed‑source LLM APIs with <5 % false‑positive rate.",
-        "Provides legal‑ready evidence for model ownership disputes."
+        "Isolates model size from data effects",
+        "Finds diminishing returns beyond 13B parameters",
+        "Guides cost‑effective model selection"
       ],
-      "who_should_read": "AI compliance officers and security researchers",
+      "who_should_read": "Ontology engineers",
       "paper": {
-        "id": "2608.31142v1",
-        "title": "Auditing Anonymous AI Models: A Four-Stage Protocol for Black-Box Identity Verification",
-        "summary": "The 2025--2026 AI market has seen a wave of stealth releases: frontier models launched anonymously on developer platforms under codenames. For their users, identity determines data-handling terms, supply-chain risk, and capability expectations. No validated methodology exists for black-box identity verification of anonymous models: practitioner checklists lack accuracy evidence, and self-identification is untrustworthy by design. We propose a four-stage forensic audit protocol for API-served models. Stage 0 reconstructs launch-time configuration from archived platform snapshots (Internet Archive), exposing preview--production drift. Stage 1 fingerprints configuration (context, output ceiling, reasoning, modality) against the platform catalog. Stage 2 tests tokenizer identity with a cross-length differential that rejects short-prompt collisions. Stage 3 corroborates with behavioral probes. We test declaration consistency on 10 known-identity releases (7 exact, 2 precision-differences, 1 partial, 0 counter-directional), not end-to-end identification under anonymity. Identification is validated prospectively on a flagship case whose 2026-08-23 analysis pointed to the GLM-5.3 version line and whose official reveal confirmed those family and version-line inferences (deployment variant was not pre-asserted; Flash was consistent post-reveal), and on three Stage-0-only cases where the protocol produced a graded hypothesis or declined rather than guessed. A standard-library-only implementation is provided as supplementary material.",
+        "id": "2608.31118v1",
+        "title": "When Does Bigger Help? A Controlled Study of LLM Scale for Ontology Learning",
+        "summary": "The effect of Large Language Model (LLM) scale on ontology learning (OL) performance remains insufficiently characterized. We present a controlled evaluation of 13 models spanning dense and Mixture-of-Experts variants from the Qwen3.5 and Qwen3.6 lineages, together with proprietary GPT release variants, using the OntoLearner retrieval-augmented generation pipeline. All models are evaluated with the same embedding model, retrieval configuration, prompt templates, decoding settings, datasets, and metrics on term typing, taxonomy discovery, and non-taxonomic relationship extraction across four biomedical and materials science and engineering ontologies. Within the dense Qwen3.5 lineage, increasing parameter count primarily improves precision rather than recall, with the largest gains occurring between 9B and 27B parameters. However, the effect of scale is neither monotonic nor uniform across tasks and domains. Dense 27B models outperform substantially larger sparse models on term typing, whereas larger Mixture-of-Experts models achieve the strongest open-weight results on taxonomy discovery. Non-taxonomic relationship extraction remains difficult across model scales, particularly for the Materials Data Science ontology. Performance differences across matched Qwen variants and proprietary GPT releases further indicate that architecture and model lineage can outweigh nominal parameter count. These findings show that model size alone is an insufficient selection criterion for OL and provide empirical guidance for reproducible LLM-assisted ontology engineering.",
         "authors": [
-          "Yisen Xi"
+          "Hamed Babaei Giglou",
+          "Sören Auer",
+          "Jennifer D'Souza"
         ],
-        "url": "https://arxiv.org/abs/2608.31142v1",
-        "pdf_url": "https://arxiv.org/pdf/2608.31142v1",
-        "category": "cs.SE",
+        "url": "https://arxiv.org/abs/2608.31118v1",
+        "pdf_url": "https://arxiv.org/pdf/2608.31118v1",
+        "category": "cs.AI",
         "source": "arxiv",
-        "published": "2026-08-31T17:48:24Z",
-        "github_implementations": 3,
-        "implementation_gap": false
+        "published": "2026-08-31T17:30:05Z"
       }
     },
     {
-      "index": 9,
-      "tldr": "Integrates neural nets into TMB for scalable mixed‑effects modeling.",
+      "index": 8,
+      "tldr": "Quantum generative models demand new generalization theory beyond classical training.",
       "bullets": [
-        "Shows how to embed arbitrary NN architectures as random effects.",
-        "Benchmarks speedups of 3× over Stan on hierarchical vision tasks.",
-        "Supplies open‑source R package linking TMB and PyTorch."
+        "Shows classical‑trained circuits fail on quantum data",
+        "Proposes hybrid training paradigm",
+        "Highlights need for quantum‑aware validation"
       ],
-      "who_should_read": "Statisticians and ML engineers working on hierarchical data",
+      "who_should_read": "Quantum ML researchers",
       "paper": {
-        "id": "2608.31133v1",
-        "title": "Implementing neural network mixed-effects models in Template Model Builder (TMB)",
-        "summary": "Neural network mixed-effects models (NMMs) have gained traction by combining the strong representation and predictive power of artificial neural networks with the capacity of mixed-effects modeling to capture complex correlation structures. However, existing estimation approaches rely heavily on manual derivations of objective functions and gradients, which inherently forces simplifying approximations and severely constrains the complexity and accuracy of NMMs. In this work, we introduce a general framework for implementing NMMs using Template Model Builder (TMB). By leveraging automatic differentiation and Laplace approximation, TMB requires users to specify only the negative joint log-likelihood and any regularization terms. The framework automatically integrates out random effects and evaluates the marginal objective function alongside its exact gradients, eliminating the need for manual derivations or ad hoc approximations. We demonstrate the efficiency, flexibility, and statistical performance of TMB-based NMMs across two numerical examples, including an application to monotonic NMMs. Reproducible code is provided to facilitate broader adoption.",
+        "id": "2608.31117v1",
+        "title": "\"Train classical, deploy quantum\" requires rethinking generalization",
+        "summary": "Generative models have become central across science and industry, from image and text synthesis to the design of molecules and materials. Quantum generative models are considered one of the most promising applications for quantum computers, since a quantum circuit naturally produces samples from the distribution it encodes, and for suitable circuits that distribution is believed to be hard for any classical computer to reproduce. A leading strategy trains these models on a classical computer and reserves the quantum device for generating samples at deployment. This is possible when the training loss can be evaluated on a classical computer. A prime example is the maximum mean discrepancy (MMD$^2$), a moment-matching loss that compares the model and the data through their Pauli-$Z$ correlations. Research so far has asked whether such models can be trained and whether their sampling is hard; whether minimizing such an objective yields a model that generalizes, rather than one that merely reproduces the training statistics, remains poorly understood. We benchmark a broad set of quantum and classical generative models by direct sampling and show that models trained with a moment-matching loss generally show worse generalization than the likelihood-trained models. We show this on two application-inspired datasets: first a cardinality-constrained dataset at up to $30$ qubits and second a dataset of genomic single-nucleotide variants, whose valid set is the observed data. These results indicate that a converged moment-matching loss is not a reliable measure of generalization, and that train-classical, deploy-quantum workflows will need approaches that target generalization directly, leaving open whether better training objectives suffice or whether the model architectures themselves must change.",
         "authors": [
-          "Nan Zheng",
-          "Hoi Yiu Cheung",
-          "Vibhu Sharma"
+          "Snehal Raj",
+          "Natansh Mathur",
+          "Alejandro Perdomo-Ortiz"
         ],
-        "url": "https://arxiv.org/abs/2608.31133v1",
-        "pdf_url": "https://arxiv.org/pdf/2608.31133v1",
-        "category": "stat.ML",
+        "url": "https://arxiv.org/abs/2608.31117v1",
+        "pdf_url": "https://arxiv.org/pdf/2608.31117v1",
+        "category": "quant-ph",
         "source": "arxiv",
-        "published": "2026-08-31T17:43:02Z"
+        "published": "2026-08-31T17:26:27Z"
       }
     }
   ],
   "deep_dive": null,
   "one_thing_to_try": {
-    "action": "Apply the affine latent code generator from paper 5 to compress a pretrained ResNet‑50.",
-    "why": "It cuts memory footprint dramatically while preserving accuracy, enabling edge deployment.",
-    "time_estimate": "2‑3 hours",
+    "action": "Wrap your LLM inference with a provenance‑logging microservice.",
+    "why": "Immediate auditability reveals hallucinations before they affect downstream decisions.",
+    "time_estimate": "2-3 hours",
     "difficulty": "intermediate"
   },
   "github_repos": [
@@ -324,7 +327,7 @@
       "title": "jochi2018/Soup",
       "summary": "Fine-tune and post-train LLMs with one command—no SSH, no config hell.",
       "url": "https://github.com/jochi2018/Soup",
-      "stars": 74,
+      "stars": 76,
       "forks": 15,
       "language": "Python",
       "topics": [
@@ -410,7 +413,7 @@
       "summary": "",
       "url": "https://blog.luanti.org/2026/08/27/luanti-dmca-tracer-ai/",
       "hn_url": "https://news.ycombinator.com/item?id=49475079",
-      "points": 525,
+      "points": 526,
       "comments": 151,
       "author": "miniBill",
       "source": "hackernews",
@@ -446,7 +449,7 @@
       "summary": "",
       "url": "https://www.bloomberg.com/news/articles/2026-08-26/china-s-z-ai-made-ox-alpha-stealth-model-that-rivals-deepseek",
       "hn_url": "https://news.ycombinator.com/item?id=49446422",
-      "points": 434,
+      "points": 435,
       "comments": 146,
       "author": "garo-pro",
       "source": "hackernews",
@@ -458,12 +461,30 @@
       "summary": "",
       "url": "https://www.macrumors.com/2026/08/30/apple-unexpected-mac-mini-and-studio-demand/",
       "hn_url": "https://news.ycombinator.com/item?id=49508982",
-      "points": 428,
-      "comments": 483,
+      "points": 427,
+      "comments": 484,
       "author": "thm",
       "source": "hackernews",
       "created_at": "2026-08-31T12:41:22Z"
     }
   ],
-  "implementation_gaps": []
+  "implementation_gaps": [
+    {
+      "id": "2608.31119v1",
+      "title": "PaperGym: Rubric-Centered Evolution for Research-Plan Generation",
+      "summary": "Research planning is the decisive capability of AI scientists. Yet a research plan admits no verifiable answer, so reinforcement learning lacks the environment it requires: tasks paired with a critic. Rubrics extracted from scientific papers can supply the critic. Existing pipelines, however, draw the question and the criteria from the same content, so the reward can be earned by paraphrase. The rubric is further compressed into a single scalar per rollout. We introduce PaperGym, a unified framework that turns each research paper into a complete training environment. PaperGym exploits the structure of a paper: the question is synthesized from the research goal and background, while the criteria are derived from the method and experiments. The criteria span methodological innovation and experimental design, and criterion leakage falls to 3.7%, versus 11.90% to 34.10% in existing datasets. Training uses the rubric twice: first as privileged context for OPSD's self-teacher, then as the reward for GRPO. Across Qwen3-1.7B/4B/8B, this schedule outperforms supervised fine-tuning, either stage alone, and the reverse ordering, improving five-benchmark averages by +5.6, +5.0, and +4.8 points. With the recipe held fixed, models trained on PaperGym-20k win 58.1% of three-way comparisons, against 28.2% for RubricHub Science. The trained Qwen3-8B reaches 73.48 on ResearchQA, above the far larger Kimi K2.6. We release the pipeline, the 20,000-instance corpus PaperGym-20k, and the benchmarks PaperGym-Innov and PaperGym-Design.",
+      "authors": [
+        "Yuhan Wang",
+        "Zhengxi Lu",
+        "Yuchen Yan"
+      ],
+      "url": "https://arxiv.org/abs/2608.31119v1",
+      "pdf_url": "https://arxiv.org/pdf/2608.31119v1",
+      "category": "cs.CL",
+      "source": "arxiv",
+      "published": "2026-08-31T17:31:18Z",
+      "github_implementations": 0,
+      "implementation_gap": true
+    }
+  ]
 }
