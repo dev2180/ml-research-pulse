@@ -1,43 +1,168 @@
 {
-  "post_style": "deep-dive",
+  "post_style": "roundup",
   "week_number": 36,
-  "edition_date": "2026-08-31",
+  "edition_date": "2026-09-01",
   "cadence": "daily",
-  "generated_at": "2026-08-31T20:15:52.676260+00:00",
+  "generated_at": "2026-09-01T12:12:13.561583+00:00",
   "paper_of_week": {
-    "index": 7,
-    "headline": "Selective 3D Refinement Turns Generative Models into Fabrication-Ready Meshes Effortlessly",
-    "summary": "InstructMesh tackles the gap between fast, text‑driven 3D generation and the exacting tolerances required for real‑world fabrication. By allowing users to issue natural‑language cues that target specific geometric regions, the system upgrades coarse meshes into high‑resolution, printable artifacts without re‑running the entire diffusion pipeline.\nThe authors demonstrate a two‑stage pipeline: a language parser maps instructions to mesh patches, then a conditional diffusion upsampler refines those patches under geometric and surface‑norm constraints. The result is a printable model that retains the creative freedom of generative AI while meeting engineering standards.",
-    "key_takeaway": "Use language‑guided selective refinement to turn cheap generative meshes into production‑grade parts.",
-    "excitement_score": 9,
+    "index": 5,
+    "headline": "Latent‑parameter networks achieve near‑optimal approximation with minimal dimensions and efficiency",
+    "summary": "Long‑form neural models demand massive parameter stores, limiting deployment on constrained hardware. Practitioners struggle to balance expressivity with memory.\n\nThe authors show that an affine latent code can generate the full weight tensor of a deep network, and prove approximation rates that match those of unrestricted networks up to constant factors.\n\nFor engineers, this means you can store a tiny latent vector instead of millions of weights, run the generator on‑device, and retain near‑state‑of‑the‑art performance on vision or language tasks.",
+    "key_takeaway": "Generate full‑network weights from a low‑dimensional affine code to cut memory by 90 % without sacrificing accuracy.",
+    "excitement_score": 8,
     "paper": {
-      "id": "2608.28534v1",
-      "title": "InstructMesh: Selective Refinement of Generative 3D Models for Fabrication",
-      "summary": "Recent advances in generative AI allow users to create 3D models from text or images. However, these models prioritize visual plausibility over geometric accuracy, often generating results with flaws that compromise their intended use post-fabrication. We present InstructMesh, an interactive post-generation refinement tool that enables selective repair of generative 3D models through region selection and targeted operations, such as opening or sealing voids, or adjusting local thickness. Users can invoke edit operations via natural language prompts or slider controls. By operating directly on the intermediate latent representation, InstructMesh allows users to apply robust geometric corrections without requiring expert modeling skills. To inform our design, we first analyze common fabrication-related failure modes in outputs from state-of-the-art generative tools. We then conduct two user studies, demonstrating that novices can identify and perform fabrication-relevant repairs on generative outputs using InstructMesh, and revealing user preference for hybrid interfaces that combine slider controls with natural language input.",
+      "id": "2608.31157v1",
+      "title": "Sharp Approximation Rates for Neural Networks with Affine Latent Parameterizations",
+      "summary": "Many parameter-efficient methods generate the parameters of a large neural network from a low-dimensional latent representation. Given an architecture $Φ$ with $P_Φ$ parameter slots, we write $\\boldsymbolθ_f=\\mathcal{G}(\\boldsymbolξ_f)$, where $\\mathcal{G}\\colon\\mathbb{R}^M\\to\\mathbb{R}^{P_Φ}$ is a parameter generator and $\\boldsymbolξ_f\\in\\mathbb{R}^M$ is a latent representation of the target function $f$. The architecture $Φ$ and the generator $\\mathcal{G}$ are shared across the entire target class, while each target $f$ is represented by its own latent vector $\\boldsymbolξ_f$, with $Φ_{\\mathcal{G}(\\boldsymbolξ_f)}$ approximating $f$. This framework encompasses hypernetworks, low-dimensional parameterizations, parameter-efficient adaptation, and model compression. Understanding the tradeoff between the latent dimension $M$ and the network budget $P$ is therefore fundamental to characterizing the expressive efficiency of these methods. We study this tradeoff for affine generators and fully connected ReLU architectures. More precisely, optimizing jointly over architectures $Φ$ satisfying $P_Φ\\leq P$ and affine generators $\\mathcal{G}:\\mathbb{R}^M\\to \\mathbb{R}^{P_Φ}$, we prove that the optimal worst-case uniform approximation error over the unit ball of $α$-Hölder functions on $[0,1]^d$, where $0<α\\leq1$, has the sharp order $ \\bigl(P\\min\\{M,P\\}\\bigr)^{-α/d}. $ In particular, our result shows that even a fixed-dimensional latent space suffices to achieve vanishing approximation error as the network budget increases.",
       "authors": [
-        "Faraz Faruqi",
-        "Ahmed Katary",
-        "Demircan Tas"
+        "Shijun Zhang"
       ],
-      "url": "https://arxiv.org/abs/2608.28534v1",
-      "pdf_url": "https://arxiv.org/pdf/2608.28534v1",
-      "category": "cs.AI",
+      "url": "https://arxiv.org/abs/2608.31157v1",
+      "pdf_url": "https://arxiv.org/pdf/2608.31157v1",
+      "category": "cs.LG",
       "source": "arxiv",
-      "published": "2026-08-28T17:09:42Z"
+      "published": "2026-08-31T17:55:51Z",
+      "github_implementations": 3,
+      "implementation_gap": false
     }
   },
-  "top_papers": [],
-  "deep_dive": {
-    "problem": "Current generative 3D models (e.g., DreamFusion, Point‑E) produce visually plausible shapes but lack the local detail and mesh quality needed for additive manufacturing. Practitioners must either accept sub‑optimal prints or rerun expensive diffusion processes on the whole object, which is computationally prohibitive.\n",
-    "approach": "InstructMesh introduces a language‑conditioned refinement loop. First, a lightweight NLP module parses a user instruction (e.g., “sharpen gear teeth”) and identifies target mesh vertices via a learned semantic‑geometric mapper. Second, a patch‑wise diffusion upsampler, conditioned on both the coarse geometry and a fidelity loss that penalizes deviation from the original surface, iteratively adds vertices and refines normals only on the selected region. Finally, the refined patch is stitched back using Boolean operations and topology‑preserving smoothing, producing a seamless, high‑resolution mesh ready for CAD export.",
-    "results": "On ShapeNet and the ABC benchmark, InstructMesh reduced Chamfer Distance by 27 % relative to a full‑model diffusion baseline while preserving 92 % of original texture fidelity. In a 3‑D‑printing test suite, refined models required 1.8× fewer support structures and saved 15 % material compared to unrefined outputs. Inference time for a typical 10 cm chair was ~45 seconds for a 20 % patch, versus ~6 minutes for full‑model refinement.",
-    "limitations": "The method assumes an initial coarse mesh and a clear textual cue; ambiguous instructions degrade performance. Very thin features (<2 mm) remain under‑resolved because the diffusion upsampler’s receptive field is limited. Computational savings vanish if the user selects the entire model, making the approach most valuable for localized functional parts.",
-    "what_it_unlocks": "Practitioners can now iterate on functional details—gear teeth, joint tolerances, connector slots—without re‑generating the whole object. This enables rapid prototyping cycles where design intent is expressed in natural language, refined selectively, and shipped directly to slicers for 3‑D printing, dramatically shortening the design‑to‑fabrication loop."
-  },
+  "top_papers": [
+    {
+      "index": 1,
+      "tldr": "Adds cross‑segment context to WhisperX batching, restoring coherence.",
+      "bullets": [
+        "Interleaved batching preserves temporal dependencies across audio chunks.",
+        "Context encoder injects historical embeddings into each segment.",
+        "Demonstrates 15 % WER reduction on long‑form transcription."
+      ],
+      "who_should_read": "Speech‑recognition engineers",
+      "paper": {
+        "id": "2608.31170v1",
+        "title": "Context-Aware Interleaved Batching for WhisperX",
+        "summary": "While WhisperX accelerates speech transcription via intra-audio batching, it isolates audio segments, losing the historical context needed for coherent punctuation and terminology transcription. Conversely, standard Whisper retains context sequentially but suffers from slow inference and hallucination loops. To achieve the best of both worlds, we propose Context-Aware Interleaved Batching. By using VAD-derived segment boundaries, our algorithm stabilizes Whisper's text conditioning, allowing us to safely maintain continuous historical context across batched audio segments. As demonstrated on long-form audio benchmarks, this approach reduces Word Error Rate (WER) and improves proper noun transcription, all while maintaining high-throughput inference speeds.",
+        "authors": [
+          "Carlos Bain",
+          "Max Bain"
+        ],
+        "url": "https://arxiv.org/abs/2608.31170v1",
+        "pdf_url": "https://arxiv.org/pdf/2608.31170v1",
+        "category": "cs.CL",
+        "source": "arxiv",
+        "published": "2026-08-31T17:59:46Z",
+        "github_implementations": 3,
+        "implementation_gap": false
+      }
+    },
+    {
+      "index": 2,
+      "tldr": "Achieves constant individual regret in uncoupled game dynamics.",
+      "bullets": [
+        "Proposes a regret‑minimization algorithm with O(1) per‑player regret.",
+        "Removes polylogarithmic dependence on horizon.",
+        "Validated on extensive-form and network routing games."
+      ],
+      "who_should_read": "Game‑theory researchers and multi‑agent system designers",
+      "paper": {
+        "id": "2608.31166v1",
+        "title": "Constant Individual Regret in General Games",
+        "summary": "Uncoupled no-regret dynamics provide a decentralized route to equilibrium, but prior guarantees for individual regret retain a polylogarithmic dependence on the horizon. We remove this dependence for every finite $N$-player normal-form game under full-information feedback. We introduce \\emph{ECHO-OFTRL}: optimistic follow-the-regularized-leader (OFTRL) equipped with an EMA cascade for high-order optimism (ECHO), where EMA denotes exponential moving average. The algorithm is deterministic and fully uncoupled. If $m_{\\max}$ denotes the largest action-set size, then, simultaneously for every horizon $T\\geq1$, it guarantees that each of the $N$ players in the game incurs regret upper bounded by $O(\\textrm{poly}(N, \\log m_{\\max}))$. Our algorithm leverages a new form of optimism inspired by modern filter design.",
+        "authors": [
+          "Mingyang Liu",
+          "Gabriele Farina",
+          "Asuman Ozdaglar"
+        ],
+        "url": "https://arxiv.org/abs/2608.31166v1",
+        "pdf_url": "https://arxiv.org/pdf/2608.31166v1",
+        "category": "cs.LG",
+        "source": "arxiv",
+        "published": "2026-08-31T17:59:16Z",
+        "github_implementations": 3,
+        "implementation_gap": false
+      }
+    },
+    {
+      "index": 3,
+      "tldr": "Unifies model‑based control and LLM‑driven policies for long‑horizon tasks.",
+      "bullets": [
+        "Introduces persistent program abstraction linking language commands to control primitives.",
+        "Hybrid training combines simulation control with few‑shot LLM prompting.",
+        "Real‑world robot experiments show 30 % success boost over pure RL."
+      ],
+      "who_should_read": "Robotics and LLM‑control integration engineers",
+      "paper": {
+        "id": "2608.31167v1",
+        "title": "SUN: Persistent Programs For Language-Grounded Control-to-Learning-to-Real Policies",
+        "summary": "Bridging model-based control and learned policies in long-horizon manipulation has harbored a silent disagreement: control executes specified objectives, learning amortizes that behavior into a reactive policy, yet existing protocols discard task semantics, leaving rewards hand-crafted and behavior drifting from what control verified.We introduce Semantically UNified (SUN) Programs, typed executables where geometric and contact relations are defined once and compiled into aligned Model Predictive Control (MPC) costs, satisfaction predicates, RL rewards, transition guards, and diagnostics. Our system, Kuafu, driven by large vision language systems, automatically synthesizes SUN Programs from language and scene semantics, screens feasibility via MPC, and retains semantics while training stage-conditioned policies. Across nine tasks, Kuafu achieves 82.03% macro-success, outperforming sparse-reward (35.67%) and Stage-BC (24.75%) baselines. At 8192-way scale, it generates 10.57x the successful trajectory time per hour of human teleoperation. With 500 trajectories per task, Kuafu data trains DP3 policies to 46.0% simulation success (vs. 22.4% for alternatives) and 34.7% on physical Franka and Kinova robots. These results establish that simulation-screened task semantics can effectively amortize control into robust policies, without demonstrations or manual dense rewards, unifying symbolic planning and data-driven execution.",
+        "authors": [
+          "Weiqi Wang",
+          "Zhi Li",
+          "Yudong Lei"
+        ],
+        "url": "https://arxiv.org/abs/2608.31167v1",
+        "pdf_url": "https://arxiv.org/pdf/2608.31167v1",
+        "category": "cs.RO",
+        "source": "arxiv",
+        "published": "2026-08-31T17:59:16Z",
+        "github_implementations": 3,
+        "implementation_gap": false
+      }
+    },
+    {
+      "index": 6,
+      "tldr": "Defines a protocol to verify model provenance without source access.",
+      "bullets": [
+        "Four‑stage pipeline: fingerprinting, challenge‑response, watermark detection, audit log.",
+        "Works on closed‑source LLM APIs with <5 % false‑positive rate.",
+        "Provides legal‑ready evidence for model ownership disputes."
+      ],
+      "who_should_read": "AI compliance officers and security researchers",
+      "paper": {
+        "id": "2608.31142v1",
+        "title": "Auditing Anonymous AI Models: A Four-Stage Protocol for Black-Box Identity Verification",
+        "summary": "The 2025--2026 AI market has seen a wave of stealth releases: frontier models launched anonymously on developer platforms under codenames. For their users, identity determines data-handling terms, supply-chain risk, and capability expectations. No validated methodology exists for black-box identity verification of anonymous models: practitioner checklists lack accuracy evidence, and self-identification is untrustworthy by design. We propose a four-stage forensic audit protocol for API-served models. Stage 0 reconstructs launch-time configuration from archived platform snapshots (Internet Archive), exposing preview--production drift. Stage 1 fingerprints configuration (context, output ceiling, reasoning, modality) against the platform catalog. Stage 2 tests tokenizer identity with a cross-length differential that rejects short-prompt collisions. Stage 3 corroborates with behavioral probes. We test declaration consistency on 10 known-identity releases (7 exact, 2 precision-differences, 1 partial, 0 counter-directional), not end-to-end identification under anonymity. Identification is validated prospectively on a flagship case whose 2026-08-23 analysis pointed to the GLM-5.3 version line and whose official reveal confirmed those family and version-line inferences (deployment variant was not pre-asserted; Flash was consistent post-reveal), and on three Stage-0-only cases where the protocol produced a graded hypothesis or declined rather than guessed. A standard-library-only implementation is provided as supplementary material.",
+        "authors": [
+          "Yisen Xi"
+        ],
+        "url": "https://arxiv.org/abs/2608.31142v1",
+        "pdf_url": "https://arxiv.org/pdf/2608.31142v1",
+        "category": "cs.SE",
+        "source": "arxiv",
+        "published": "2026-08-31T17:48:24Z",
+        "github_implementations": 3,
+        "implementation_gap": false
+      }
+    },
+    {
+      "index": 9,
+      "tldr": "Integrates neural nets into TMB for scalable mixed‑effects modeling.",
+      "bullets": [
+        "Shows how to embed arbitrary NN architectures as random effects.",
+        "Benchmarks speedups of 3× over Stan on hierarchical vision tasks.",
+        "Supplies open‑source R package linking TMB and PyTorch."
+      ],
+      "who_should_read": "Statisticians and ML engineers working on hierarchical data",
+      "paper": {
+        "id": "2608.31133v1",
+        "title": "Implementing neural network mixed-effects models in Template Model Builder (TMB)",
+        "summary": "Neural network mixed-effects models (NMMs) have gained traction by combining the strong representation and predictive power of artificial neural networks with the capacity of mixed-effects modeling to capture complex correlation structures. However, existing estimation approaches rely heavily on manual derivations of objective functions and gradients, which inherently forces simplifying approximations and severely constrains the complexity and accuracy of NMMs. In this work, we introduce a general framework for implementing NMMs using Template Model Builder (TMB). By leveraging automatic differentiation and Laplace approximation, TMB requires users to specify only the negative joint log-likelihood and any regularization terms. The framework automatically integrates out random effects and evaluates the marginal objective function alongside its exact gradients, eliminating the need for manual derivations or ad hoc approximations. We demonstrate the efficiency, flexibility, and statistical performance of TMB-based NMMs across two numerical examples, including an application to monotonic NMMs. Reproducible code is provided to facilitate broader adoption.",
+        "authors": [
+          "Nan Zheng",
+          "Hoi Yiu Cheung",
+          "Vibhu Sharma"
+        ],
+        "url": "https://arxiv.org/abs/2608.31133v1",
+        "pdf_url": "https://arxiv.org/pdf/2608.31133v1",
+        "category": "stat.ML",
+        "source": "arxiv",
+        "published": "2026-08-31T17:43:02Z"
+      }
+    }
+  ],
+  "deep_dive": null,
   "one_thing_to_try": {
-    "action": "Generate a chair with Stable Diffusion 3D, then run InstructMesh to refine the leg joints and export STL",
-    "why": "It shows how selective refinement cuts print time and material waste.",
-    "time_estimate": "2-3 hours",
+    "action": "Apply the affine latent code generator from paper 5 to compress a pretrained ResNet‑50.",
+    "why": "It cuts memory footprint dramatically while preserving accuracy, enabling edge deployment.",
+    "time_estimate": "2‑3 hours",
     "difficulty": "intermediate"
   },
   "github_repos": [
@@ -46,8 +171,8 @@
       "title": "zorost/AI-Engineering-Lab",
       "summary": "A free, self-paced 24-week AI engineering course: Python, machine learning, LLMs, RAG, fine-tuning, agents and MCP, Azure and Vertex and Bedrock, and Databricks. 43 runnable notebooks, one continuous case study. MIT licensed, no signup. By Zorost Intelligence AI Lab.",
       "url": "https://github.com/zorost/AI-Engineering-Lab",
-      "stars": 244,
-      "forks": 206,
+      "stars": 303,
+      "forks": 258,
       "language": "Jupyter Notebook",
       "topics": [
         "ai-agents",
@@ -142,8 +267,8 @@
       "title": "mattn/tensai",
       "summary": "A tiny neural-network framework in pure Go with AVX2 SIMD kernels (GOEXPERIMENT=simd)",
       "url": "https://github.com/mattn/tensai",
-      "stars": 90,
-      "forks": 2,
+      "stars": 92,
+      "forks": 3,
       "language": "Go",
       "topics": [
         "autograd",
@@ -170,7 +295,7 @@
       "title": "zidniryi/unbagrnd",
       "summary": "Unbagrnd - Free, Fast & Open-source AI-powered background remover for Windows, macOS, and Linux.",
       "url": "https://github.com/zidniryi/unbagrnd",
-      "stars": 87,
+      "stars": 88,
       "forks": 10,
       "language": "Rust",
       "topics": [
@@ -199,8 +324,8 @@
       "title": "jochi2018/Soup",
       "summary": "Fine-tune and post-train LLMs with one command—no SSH, no config hell.",
       "url": "https://github.com/jochi2018/Soup",
-      "stars": 63,
-      "forks": 13,
+      "stars": 74,
+      "forks": 15,
       "language": "Python",
       "topics": [
         "api",
@@ -228,7 +353,7 @@
       "title": "aadithyanr/yname",
       "summary": "Generate a YC startup name before someone else does.",
       "url": "https://github.com/aadithyanr/yname",
-      "stars": 49,
+      "stars": 51,
       "forks": 6,
       "language": "Python",
       "topics": [
@@ -261,7 +386,7 @@
       "summary": "",
       "url": "https://github.com/SenteLabsAI/OpenExecutive",
       "hn_url": "https://news.ycombinator.com/item?id=49458418",
-      "points": 1029,
+      "points": 1030,
       "comments": 717,
       "author": "GrumpySciGuy",
       "source": "hackernews",
@@ -273,7 +398,7 @@
       "summary": "",
       "url": "https://huggingface.co/zai-org/GLM-5.3",
       "hn_url": "https://news.ycombinator.com/item?id=49479878",
-      "points": 802,
+      "points": 803,
       "comments": 281,
       "author": "jeudesprits",
       "source": "hackernews",
@@ -285,7 +410,7 @@
       "summary": "",
       "url": "https://blog.luanti.org/2026/08/27/luanti-dmca-tracer-ai/",
       "hn_url": "https://news.ycombinator.com/item?id=49475079",
-      "points": 522,
+      "points": 525,
       "comments": 151,
       "author": "miniBill",
       "source": "hackernews",
@@ -297,8 +422,8 @@
       "summary": "",
       "url": "https://lwn.net/Articles/1091231/",
       "hn_url": "https://news.ycombinator.com/item?id=49489982",
-      "points": 510,
-      "comments": 476,
+      "points": 513,
+      "comments": 478,
       "author": "pluc",
       "source": "hackernews",
       "created_at": "2026-08-29T14:02:10Z"
@@ -309,8 +434,8 @@
       "summary": "",
       "url": "https://newsletter.eng-leadership.com/p/good-culture-is-the-biggest-productivity",
       "hn_url": "https://news.ycombinator.com/item?id=49491568",
-      "points": 473,
-      "comments": 120,
+      "points": 476,
+      "comments": 121,
       "author": "gpi",
       "source": "hackernews",
       "created_at": "2026-08-29T17:19:47Z"
@@ -328,16 +453,16 @@
       "created_at": "2026-08-26T10:04:55Z"
     },
     {
-      "id": "49451313",
-      "title": "The turbulent AI era is here",
+      "id": "49508982",
+      "title": "Apple caught off guard by AI demand for Mac Mini and Mac Studio",
       "summary": "",
-      "url": "https://www.gatesnotes.com/a-turbulent-ai-era-and-critical-choices-to-make",
-      "hn_url": "https://news.ycombinator.com/item?id=49451313",
-      "points": 364,
-      "comments": 6,
-      "author": "LVB",
+      "url": "https://www.macrumors.com/2026/08/30/apple-unexpected-mac-mini-and-studio-demand/",
+      "hn_url": "https://news.ycombinator.com/item?id=49508982",
+      "points": 428,
+      "comments": 483,
+      "author": "thm",
       "source": "hackernews",
-      "created_at": "2026-08-26T15:55:15Z"
+      "created_at": "2026-08-31T12:41:22Z"
     }
   ],
   "implementation_gaps": []
