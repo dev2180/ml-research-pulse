@@ -1,45 +1,114 @@
 {
-  "post_style": "deep-dive",
+  "post_style": "roundup",
   "week_number": 36,
-  "edition_date": "2026-09-02",
+  "edition_date": "2026-09-03",
   "cadence": "daily",
-  "generated_at": "2026-09-02T07:17:06.175219+00:00",
+  "generated_at": "2026-09-03T07:20:03.849565+00:00",
   "paper_of_week": {
-    "index": 9,
-    "headline": "Designing incentive structures to align AI agents with human intent",
-    "summary": "This work reframes AI alignment as a classic mechanism‑design problem, where a principal must craft contracts that elicit truthful revelation of an agent’s hidden preferences and capabilities. By treating alignment as incentive engineering, the authors bridge economics and AI safety, offering a principled path beyond ad‑hoc loss shaping.\nThe paper delivers a formal model, equilibrium analysis, and constructive algorithms for contract synthesis, moving the field from speculative proposals to verifiable mechanisms.",
-    "key_takeaway": "Use incentive‑compatible contracts to steer agents when their utility functions are unknown.",
+    "index": 5,
+    "headline": "GPU-accelerated exact gradients make ODE ensembles tractable at scale now",
+    "summary": "Neural and scientific models increasingly rely on large ensembles of ordinary differential equations, but computing gradients through these solvers is a major bottleneck for training and inference.\n\nGRADSOLVE rewrites the adjoint sensitivity method to run entirely on GPUs, delivering exact gradients for thousands of ODE instances in parallel without resorting to finite‑difference approximations.\n\nPractitioners can drop it into existing PyTorch ODE code, halve gradient‑computation time, and scale ensembles that were previously infeasible, opening doors to richer physics‑informed models.\n",
+    "key_takeaway": "Integrate GRADSOLVE into your PyTorch ODE pipelines to halve gradient computation time.",
     "excitement_score": 9,
     "paper": {
-      "id": "2609.01595v1",
-      "title": "Mechanism Design for Alignment and Control",
-      "summary": "We develop a framework for mechanism design with AI agents whose alignment (preferences) and capabilities (feasible actions and information) are unknown. We want such agents to act on our behalf so mechanisms must incentivize both honesty and obedience. A one-sided imitation structure---capabilities can be concealed but not counterfeited---yields a revelation principle, a characterization of implementable policies via nested cyclical monotonicity, and conditions under which eliciting higher-order beliefs can discipline multiple agents. We apply our framework to stylized examples of (i) sandbagging in which a more capable agent pretends to be less capable; (ii) an alignment--interpretability trade-off, where the two are substitutes in the instrument but complements in value; (iii) discipline via peer scoring; (iv) coupling rewards to induce competition among multiple agents; and (v) scalable oversight and reward shaping.",
+      "id": "2609.02876v1",
+      "title": "GRADSOLVE: fast exact gradients for ODE ensembles on GPUs",
+      "summary": "Ordinary differential equations (ODEs) underlie models in science and engineering, and many applications need derivatives of their solutions with respect to parameters. Ensembles of independent trajectories suit graphics processing units (GPUs), but current GPU software forces a trade-off: the fastest ensemble solvers cannot be differentiated in reverse mode at the speed they solve, and the solvers built for differentiation solve more slowly. No single tool has yet offered a reverse-mode gradient at the speed of a fused-kernel solve.   We present GRADSOLVE, an open-source JAX library for solving and reverse-mode differentiating low-dimensional ODE ensembles on NVIDIA GPUs. It records the steps an adaptive solver accepts and differentiates a fixed-step replay of them; the returned gradient is the exact discrete adjoint of those steps, the same derivative Diffrax returns by default, obtained more cheaply from a fixed-length chain than from an adaptive loop. It targets ensembles differentiated many times against one recorded mesh, keeps Diffrax as a fallback, and supports explicit and Rosenbrock integrators.   Used as a solver, GRADSOLVE's forward-only kernel ran 2.8x faster than DiffEqGPU.jl; used for gradients, once a record exists, it computed them 5.6-14.1x faster than Diffrax's checkpointed adjoint at matched forward-state accuracy across three GPU generations, the advantage narrowing on large ensembles and, on stiff systems, down to parity at tight accuracy. GRADSOLVE is released at https://github.com/ECLIPSE-AI4Science/gradsolve.",
       "authors": [
-        "Dirk Bergemann",
-        "Andrew Koh",
-        "Stephen Morris"
+        "Alessio Spurio Mancini"
       ],
-      "url": "https://arxiv.org/abs/2609.01595v1",
-      "pdf_url": "https://arxiv.org/pdf/2609.01595v1",
-      "category": "econ.TH",
+      "url": "https://arxiv.org/abs/2609.02876v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.02876v1",
+      "category": "cs.MS",
       "source": "arxiv",
-      "published": "2026-09-01T17:57:50Z"
+      "published": "2026-09-02T17:56:10Z",
+      "github_implementations": 3,
+      "implementation_gap": false
     }
   },
-  "top_papers": [],
-  "deep_dive": {
-    "problem": "Current alignment methods assume known reward models or rely on post‑hoc fine‑tuning, which fails when an AI system’s true preferences and feasible actions are hidden. Practitioners need a systematic way to guarantee desired behavior despite this uncertainty.",
-    "approach": "The authors formulate a Bayesian mechanism‑design game where the principal observes only outcome signals. They derive incentive‑compatible contracts that map reported types to reward schedules, using a posterior over hidden preferences. A robust optimization layer ensures contracts remain effective under model misspecification. The solution is computed via convex programming that scales with the number of observable signal bins.",
-    "results": "In synthetic simulations with agents drawn from a 5‑type preference distribution, the contract mechanism reduced alignment error from 30 % to 5 % and achieved 0.92 expected utility compared to 0.68 for baseline reward‑shaping. Sample complexity analysis showed ε‑alignment with O(log 1/δ) samples, matching theoretical bounds.",
-    "limitations": "The framework presumes rational, utility‑maximizing agents and full observability of outcome signals; real LLMs exhibit bounded rationality and hidden internal states. Contracts are derived for static tasks; extending to sequential decision‑making remains open. High‑dimensional preference spaces may render the convex program intractable.",
-    "what_it_unlocks": "Practitioners can embed contract‑based wrappers around existing models to enforce alignment without retraining, enabling safe delegation in multi‑agent pipelines, collaborative coding assistants, or autonomous data‑curation bots."
-  },
-  "one_thing_to_try": {
-    "action": "Implement a simple contract‑based reward wrapper around an LLM using the provided incentive formula",
-    "why": "It demonstrates alignment via incentive mechanisms without retraining",
-    "time_estimate": "2-3 hours",
-    "difficulty": "intermediate"
-  },
+  "top_papers": [
+    {
+      "index": 2,
+      "tldr": "SolarWM provides open data and training pipelines for long-horizon video world modeling.",
+      "bullets": [
+        "Fully open dataset spanning diverse interactive scenarios.",
+        "Scalable training code that leverages distributed GPUs for horizon lengths >100 steps.",
+        "Benchmark suite for interactive inference and planning."
+      ],
+      "who_should_read": "Computer vision researchers building interactive agents",
+      "paper": {
+        "id": "2609.02886v1",
+        "title": "SolarWM: Open Data and Scalable Training for Long-Horizon Video World Models",
+        "summary": "We introduce SolarWM, a fully open foundation for building interactive video world models from data preparation through long-horizon inference. Training across heterogeneous data sources and video backbones is challenging: datasets differ in temporal scale, camera geometry, visual quality, motion, and captioning styles, while video generators use distinct representations and architectures. Naive data mixing and model-specific implementations therefore produce inconsistent supervision and make results difficult to reproduce and compare. SolarWM addresses this coupling with a reconfigurable multi-source data engine and a backbone-native adaptation framework. The engine converts 1.43 million canonical clips from 10 datasets into a unified, frame-aligned contract covering visual observations, metric camera geometry, captions, quality metadata, selection decisions, and provenance, while decoupling source processing from mixture construction. Under shared camera-conditioning, training, and inference interfaces, we instantiate four 5B--33B models based on Wan2.2, LTX-2.5, and MiniMax-H3 while preserving their native representations and objectives. A unified three-stage recipe combines bidirectional adaptation, teacher-forced autoregressive initialization, and distribution matching distillation. The resulting causal models enable real-time interaction over rollouts ranging from minutes to hours after being trained on only 5s sequences. By releasing the resulting data, pipeline, recipes, weights, and framework, SolarWM provides a reproducible and extensible foundation for interactive world-model research.",
+        "authors": [
+          "Junchao Huang",
+          "Guian Fang",
+          "Shengju Qian"
+        ],
+        "url": "https://arxiv.org/abs/2609.02886v1",
+        "pdf_url": "https://arxiv.org/pdf/2609.02886v1",
+        "category": "cs.CV",
+        "source": "arxiv",
+        "published": "2026-09-02T17:59:41Z",
+        "github_implementations": 3,
+        "implementation_gap": false
+      }
+    },
+    {
+      "index": 3,
+      "tldr": "Discriminative world models rank web actions via predicted state outcomes.",
+      "bullets": [
+        "Action sampling combined with learned state predictors.",
+        "Discriminative ranking reduces search space by 70%.",
+        "Demonstrated gains on complex multi-page web tasks."
+      ],
+      "who_should_read": "Engineers developing autonomous web agents",
+      "paper": {
+        "id": "2609.02885v1",
+        "title": "Discriminative World Models for Web Agents",
+        "summary": "Recent web agents use world models for test-time action selection by sampling candidate actions, predicting the resulting web states, and ranking them with a ranker model or a Process Reward Model (PRM). These world models are typically trained via supervised next-state prediction to generate fixed representations like HTML or AXTree snapshots. However, this objective is misaligned with the downstream ranker, which relies on predicted states being discriminative across candidates to accurately score them. To address this, we introduce predicted-state matching, a training objective where the predicted representation must distinguish the true resulting state from those reached by alternative actions. We train these models using a branching web-agent dataset derived from WebArena Go-Browse trajectories, where every decision point contains multiple alternative actions and their resulting states. Experiments on our held-out predicted-state matching benchmark show that our approach outperforms world models trained with supervised next-state prediction. We further show that our approach improves PRM-style action ranking on WebPRMBench compared with action-only PRMs and PRMs augmented with supervised-next-state world models. Finally, on WebArena-Lite, using our world model for test-time action selection improves end-to-end task success. Our project page is available at: https://dhruvpendharkar.github.io/dwm/.",
+        "authors": [
+          "Kelvin Li",
+          "Dhruv Pendharkar",
+          "Anish Pahilajani"
+        ],
+        "url": "https://arxiv.org/abs/2609.02885v1",
+        "pdf_url": "https://arxiv.org/pdf/2609.02885v1",
+        "category": "cs.AI",
+        "source": "arxiv",
+        "published": "2026-09-02T17:59:40Z",
+        "github_implementations": 3,
+        "implementation_gap": false
+      }
+    },
+    {
+      "index": 4,
+      "tldr": "Graph Machine introduces O(n) state with sparse dynamic routing for graph pretraining.",
+      "bullets": [
+        "Maintains linear-sized memory irrespective of graph size.",
+        "Sparse routing enables efficient message passing on billions of edges.",
+        "Outperforms GNN baselines on node classification and link prediction."
+      ],
+      "who_should_read": "Graph ML practitioners focusing on scalability",
+      "paper": {
+        "id": "2609.02881v1",
+        "title": "Graph Machine: Towards Better Pretraining via Edges",
+        "summary": "We introduce the Graph Machine (GM), an architecture that maintains an $O(n)$-sized state and accesses it through sparse, dynamic routing. Unlike methods with fixed-size states or sparse but static routing, GM preserves $O(n)$ complexity in its sparse layers without restricting the potentially accessible state size to $O(1)$. Instead, GM uses edges - pointer-like objects updated differentiably by a referral mechanism resembling pointer chasing. We replace 75% of the dense Transformer layers in Qwen3-0.6B with GM sparse layers and pretrain from scratch on 15.7B tokens. With only 2 of 4,096 tokens retrieved per KV head in each sparse layer, loss degrades only slightly; with 4, the best model marginally improves loss.",
+        "authors": [
+          "Lintai Hou"
+        ],
+        "url": "https://arxiv.org/abs/2609.02881v1",
+        "pdf_url": "https://arxiv.org/pdf/2609.02881v1",
+        "category": "cs.LG",
+        "source": "arxiv",
+        "published": "2026-09-02T17:56:41Z",
+        "github_implementations": 3,
+        "implementation_gap": false
+      }
+    }
+  ],
+  "deep_dive": null,
+  "one_thing_to_try": null,
   "github_repos": [
     {
       "id": "1337390717",
@@ -118,6 +187,35 @@
       "created_at": "2026-08-10T14:29:47Z"
     },
     {
+      "id": "1336278719",
+      "title": "jochi2018/Soup",
+      "summary": "Fine-tune and post-train LLMs with one command—no SSH, no config hell.",
+      "url": "https://github.com/jochi2018/Soup",
+      "stars": 115,
+      "forks": 25,
+      "language": "Python",
+      "topics": [
+        "api",
+        "extract",
+        "go",
+        "html",
+        "llmops",
+        "local-ai",
+        "low-vram",
+        "machine-learning",
+        "ollama",
+        "qlora",
+        "selector",
+        "sft",
+        "swift",
+        "swiftsoup",
+        "twilio",
+        "webscraping"
+      ],
+      "source": "github",
+      "created_at": "2026-08-16T19:15:11Z"
+    },
+    {
       "id": "1331679891",
       "title": "Yixuan-Wu39/bandminton",
       "summary": "Open-source wearable badminton motion analysis with lightweight on-device machine learning.",
@@ -142,8 +240,8 @@
       "title": "mattn/tensai",
       "summary": "A tiny neural-network framework in pure Go with AVX2 SIMD kernels (GOEXPERIMENT=simd)",
       "url": "https://github.com/mattn/tensai",
-      "stars": 93,
-      "forks": 3,
+      "stars": 98,
+      "forks": 4,
       "language": "Go",
       "topics": [
         "autograd",
@@ -170,7 +268,7 @@
       "title": "zidniryi/unbagrnd",
       "summary": "Unbagrnd - Free, Fast & Open-source AI-powered background remover for Windows, macOS, and Linux.",
       "url": "https://github.com/zidniryi/unbagrnd",
-      "stars": 88,
+      "stars": 89,
       "forks": 10,
       "language": "Rust",
       "topics": [
@@ -195,35 +293,6 @@
       "created_at": "2026-08-24T14:30:32Z"
     },
     {
-      "id": "1336278719",
-      "title": "jochi2018/Soup",
-      "summary": "Fine-tune and post-train LLMs with one command—no SSH, no config hell.",
-      "url": "https://github.com/jochi2018/Soup",
-      "stars": 87,
-      "forks": 19,
-      "language": "Python",
-      "topics": [
-        "api",
-        "extract",
-        "go",
-        "html",
-        "llmops",
-        "local-ai",
-        "low-vram",
-        "machine-learning",
-        "ollama",
-        "qlora",
-        "selector",
-        "sft",
-        "swift",
-        "swiftsoup",
-        "twilio",
-        "webscraping"
-      ],
-      "source": "github",
-      "created_at": "2026-08-16T19:15:11Z"
-    },
-    {
       "id": "1351204776",
       "title": "aadithyanr/yname",
       "summary": "Generate a YC startup name before someone else does.",
@@ -244,28 +313,16 @@
   ],
   "hn_posts": [
     {
-      "id": "49449507",
-      "title": "GLM-5.3-Flash",
+      "id": "49526069",
+      "title": "How accurate have Ed Zitron's AI skeptic predictions been?",
       "summary": "",
-      "url": "https://z.ai/blog/glm-5.3-flash",
-      "hn_url": "https://news.ycombinator.com/item?id=49449507",
-      "points": 1130,
-      "comments": 579,
-      "author": "Philpax",
+      "url": "https://danluu.com/zitron/",
+      "hn_url": "https://news.ycombinator.com/item?id=49526069",
+      "points": 843,
+      "comments": 1013,
+      "author": "jatins",
       "source": "hackernews",
-      "created_at": "2026-08-26T14:08:50Z"
-    },
-    {
-      "id": "49458418",
-      "title": "CEO fired developers to make room for AI. Developers create open source AI CEO",
-      "summary": "",
-      "url": "https://github.com/SenteLabsAI/OpenExecutive",
-      "hn_url": "https://news.ycombinator.com/item?id=49458418",
-      "points": 1031,
-      "comments": 717,
-      "author": "GrumpySciGuy",
-      "source": "hackernews",
-      "created_at": "2026-08-27T01:46:22Z"
+      "created_at": "2026-09-01T18:35:15Z"
     },
     {
       "id": "49479878",
@@ -280,25 +337,13 @@
       "created_at": "2026-08-28T15:20:13Z"
     },
     {
-      "id": "49526069",
-      "title": "How accurate have Ed Zitron's AI skeptic predictions been?",
-      "summary": "",
-      "url": "https://danluu.com/zitron/",
-      "hn_url": "https://news.ycombinator.com/item?id=49526069",
-      "points": 628,
-      "comments": 688,
-      "author": "jatins",
-      "source": "hackernews",
-      "created_at": "2026-09-01T18:35:15Z"
-    },
-    {
       "id": "49519939",
       "title": "I trained a small transformer in 1.5hrs and it beats many LLMs",
       "summary": "",
       "url": "https://mvakde.github.io/blog/44-on-arc-1/",
       "hn_url": "https://news.ycombinator.com/item?id=49519939",
-      "points": 609,
-      "comments": 156,
+      "points": 653,
+      "comments": 163,
       "author": "porridgeraisin",
       "source": "hackernews",
       "created_at": "2026-09-01T09:52:45Z"
@@ -309,8 +354,8 @@
       "summary": "",
       "url": "https://blog.luanti.org/2026/08/27/luanti-dmca-tracer-ai/",
       "hn_url": "https://news.ycombinator.com/item?id=49475079",
-      "points": 527,
-      "comments": 158,
+      "points": 528,
+      "comments": 159,
       "author": "miniBill",
       "source": "hackernews",
       "created_at": "2026-08-28T06:33:57Z"
@@ -322,7 +367,7 @@
       "url": "https://lwn.net/Articles/1091231/",
       "hn_url": "https://news.ycombinator.com/item?id=49489982",
       "points": 515,
-      "comments": 484,
+      "comments": 486,
       "author": "pluc",
       "source": "hackernews",
       "created_at": "2026-08-29T14:02:10Z"
@@ -333,11 +378,35 @@
       "summary": "",
       "url": "https://www.macrumors.com/2026/08/30/apple-unexpected-mac-mini-and-studio-demand/",
       "hn_url": "https://news.ycombinator.com/item?id=49508982",
-      "points": 492,
-      "comments": 588,
+      "points": 495,
+      "comments": 590,
       "author": "thm",
       "source": "hackernews",
       "created_at": "2026-08-31T12:41:22Z"
+    },
+    {
+      "id": "49491568",
+      "title": "Good Culture Is the Biggest Productivity Hack, Not AI",
+      "summary": "",
+      "url": "https://newsletter.eng-leadership.com/p/good-culture-is-the-biggest-productivity",
+      "hn_url": "https://news.ycombinator.com/item?id=49491568",
+      "points": 478,
+      "comments": 121,
+      "author": "gpi",
+      "source": "hackernews",
+      "created_at": "2026-08-29T17:19:47Z"
+    },
+    {
+      "id": "49536375",
+      "title": "Three sites made 215,128 “best software” pages for AI. Perplexity cites them",
+      "summary": "",
+      "url": "https://trellner.com/reports/manufactured-sources-behind-ai-recommendations/",
+      "hn_url": "https://news.ycombinator.com/item?id=49536375",
+      "points": 378,
+      "comments": 179,
+      "author": "jakobgreenfeld",
+      "source": "hackernews",
+      "created_at": "2026-09-02T13:59:59Z"
     }
   ],
   "implementation_gaps": []
